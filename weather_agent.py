@@ -29,19 +29,18 @@ def get_weather():
     )
 
     response = requests.get(url)
-
     data = response.json()
 
-    temp = data["main"]["temp"]
-    description = data["weather"][0]["description"]
-    humidity = data["main"]["humidity"]
-    wind = data["wind"]["speed"]
+    print("Weather API response:", data)
+
+    if response.status_code != 200:
+        raise Exception(f"Weather API error: {data}")
 
     return {
-        "temp": temp,
-        "description": description,
-        "humidity": humidity,
-        "wind": wind,
+        "temp": data["main"]["temp"],
+        "description": data["weather"][0]["description"],
+        "humidity": data["main"]["humidity"],
+        "wind": data["wind"]["speed"],
     }
 
 
