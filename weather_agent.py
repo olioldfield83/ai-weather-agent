@@ -28,13 +28,18 @@ def get_weather():
         f"?q={CITY}&appid={WEATHER_API_KEY}&units=metric"
     )
 
+    print("Request URL:", url)
+
     response = requests.get(url)
+
+    print("Status code:", response.status_code)
+
     data = response.json()
 
-    print("Weather API response:", data)
+    print("Full API response:", data)
 
     if response.status_code != 200:
-        raise Exception(f"Weather API error: {data}")
+        raise Exception(f"Weather API failed: {data}")
 
     return {
         "temp": data["main"]["temp"],
@@ -42,7 +47,6 @@ def get_weather():
         "humidity": data["main"]["humidity"],
         "wind": data["wind"]["speed"],
     }
-
 
 def generate_summary(weather):
     prompt = f"""
