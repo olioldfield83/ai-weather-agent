@@ -1,11 +1,12 @@
 name: Weather Agent
 
 on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
   schedule:
     - cron: "17 16 * * *"
-
-  workflow_dispatch:
-
 jobs:
   send-weather-email:
     runs-on: ubuntu-latest
