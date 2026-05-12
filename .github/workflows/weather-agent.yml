@@ -6,7 +6,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: "17 17 * * *"
+     - cron: "*/5 * * * *"
 jobs:
   send-weather-email:
     runs-on: ubuntu-latest
