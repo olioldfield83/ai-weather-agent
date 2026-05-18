@@ -55,14 +55,15 @@ def generate_summary(weather):
     Write a short morning weather briefing.
 
     Include:
-    - temperature
+    - temperature, rounded to the nearest degree
+    - adjectives to describe the temperature, for example "brisk" for 9°C and "sweltering" for 25°C
     - conditions
     - clothing recommendation
     - commute advice if relevant
     - advice on what to see that is appropriate for the weather
 
     Start email with "Hello lovely people"
-    End email with "Lots of love from Oli's AI agent"
+    End email with "Take care everyone!"
     Each new sentence should be a new paragraph.
 
     Keep it under 120 words.
