@@ -11,13 +11,14 @@ load_dotenv()
 
 CITY = os.getenv("CITY")
 WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 TO_EMAIL = os.getenv("TO_EMAIL")
 OPENROUTESERVICE_API_KEY = os.getenv("OPENROUTESERVICE_API_KEY")
-COMMUTE_ORIGIN = os.getenv("COMMUTE_ORIGIN")
-COMMUTE_DESTINATION = os.getenv("COMMUTE_DESTINATION")
+
+client = OpenAI(api_key=OPENAI_API_KEY)
+
 
 def log(message):
     with open("weather_log.txt", "a") as f:
@@ -30,23 +31,14 @@ def get_weather():
         f"?q={CITY}&appid={WEATHER_API_KEY}&units=metric"
     )
 
-    print("Request URL:", url)
-
     response = requests.get(url)
-
-    print("Status code:", response.status_code)
-
     data = response.json()
 
-print("OpenRouteService response:", data)
+    print("Weather API status:", response.status_code)
+    print("Weather API response:", data)
 
-if response.status_code != 200:
-    raise Exception(f"OpenRouteService failed: {data}")
-
-if "routes" not in data:
-    raise Exception(f"No route found: {data}")
-
-summary = data["routes"][0]["summary"])
+    if response.status_code != 200:
+        raise Exception(f"Weather API failed: {data}")
 
     return {
         "temp": data["main"]["temp"],
@@ -54,6 +46,7 @@ summary = data["routes"][0]["summary"])
         "humidity": data["main"]["humidity"],
         "wind": data["wind"]["speed"],
     }
+
 
 def get_forecast():
     url = (
@@ -64,7 +57,7 @@ def get_forecast():
     response = requests.get(url)
     data = response.json()
 
-    print("Forecast API response status:", response.status_code)
+    print("Forecast API status:", response.status_code)
 
     if response.status_code != 200:
         raise Exception(f"Forecast API failed: {data}")
@@ -74,6 +67,7 @@ def get_forecast():
     next_24_hours = forecast_items[:8]
 
     hourly_summary = []
+
     for item in next_24_hours:
         hourly_summary.append({
             "time": item["dt_txt"],
@@ -95,8 +89,8 @@ def get_forecast():
 
     tomorrow_summary = {
         "date": tomorrow_date,
-        "min_temp": min(tomorrow_temps),
-        "max_temp": max(tomorrow_temps),
+        "min_temp": round(min(tomorrow_temps)),
+        "max_temp": round(max(tomorrow_temps)),
         "max_rain_probability": round(max(tomorrow_rain_probs) * 100),
         "conditions": tomorrow_items[0]["weather"][0]["description"],
     }
@@ -105,6 +99,7 @@ def get_forecast():
         "next_24_hours": hourly_summary,
         "tomorrow": tomorrow_summary,
     }
+
 
 def analyze_forecast(forecast):
     next_24_hours = forecast["next_24_hours"]
@@ -147,12 +142,12 @@ def analyze_forecast(forecast):
         },
         "hottest_period": {
             "time": hottest_period["time"],
-            "temp": hottest_period["temp"],
+            "temp": round(hottest_period["temp"]),
             "conditions": hottest_period["description"],
         },
         "coldest_period": {
             "time": coldest_period["time"],
-            "temp": coldest_period["temp"],
+            "temp": round(coldest_period["temp"]),
             "conditions": coldest_period["description"],
         },
         "strongest_wind": {
@@ -163,6 +158,7 @@ def analyze_forecast(forecast):
         "commute_risk_score": commute_risk_score,
     }
 
+
 def get_commute():
     url = "https://api.openrouteservice.org/v2/directions/driving-car"
 
@@ -172,17 +168,23 @@ def get_commute():
     }
 
     body = {
-    "coordinates": [
-        [-0.1945, 51.4022],  # Morden
-        [-0.1246, 51.4975],  # Westminster
-    ]
-}
+        "coordinates": [
+            [-0.1945, 51.4022],  # Morden
+            [-0.1246, 51.4975],  # Westminster
+        ]
+    }
 
     response = requests.post(url, json=body, headers=headers)
-
     data = response.json()
 
+    print("OpenRouteService status:", response.status_code)
     print("OpenRouteService response:", data)
+
+    if response.status_code != 200:
+        raise Exception(f"OpenRouteService failed: {data}")
+
+    if "routes" not in data:
+        raise Exception(f"No route found: {data}")
 
     summary = data["routes"][0]["summary"]
 
@@ -194,11 +196,12 @@ def get_commute():
         "duration": f"{duration_minutes} mins",
     }
 
+
 def generate_summary(weather, forecast, analysis, commute):
     prompt = f"""
     You are a concise and useful London weather assistant.
 
-    Write a short morning weather briefing for today and tomorrow's weather. 
+    Write a short morning weather briefing for today and tomorrow's weather.
 
     Requirements:
     - Start email with "Hello lovely people."
@@ -209,14 +212,15 @@ def generate_summary(weather, forecast, analysis, commute):
     - Use adjectives to describe the temperature, for example "brisk" for 9°C and "sweltering" for 25°C.
     - Include conditions.
     - Include clothing recommendation.
-    - Include commute time and traffic impact.
-    - Mention whether the commute looks normal, delayed, or easy.
+    - Include commute time.
+    - Do not claim live traffic information; OpenRouteService only provides estimated routing time.
+    - Mention whether the commute looks weather-affected based on rain and wind.
     - Include advice on what to see that is appropriate for the weather.
     - Use separate paragraphs for today and tomorrow's weather. Highlight if the weather is going to change.
     - Use the structured analysis below as the main source of reasoning.
 
     Current weather:
-    Temperature: {weather['temp']}°C
+    Temperature: {round(weather['temp'])}°C
     Conditions: {weather['description']}
     Humidity: {weather['humidity']}%
     Wind Speed: {weather['wind']} m/s
@@ -236,8 +240,9 @@ def generate_summary(weather, forecast, analysis, commute):
     Conditions: {forecast['tomorrow']['conditions']}
 
     Commute:
-Distance: {commute['distance']}
-Estimated duration: {commute['duration']}
+    Route: Morden to Westminster
+    Distance: {commute['distance']}
+    Estimated duration: {commute['duration']}
     """
 
     response = client.chat.completions.create(
@@ -254,7 +259,11 @@ Estimated duration: {commute['duration']}
 
 
 def send_email(body):
-    recipients = TO_EMAIL.split(",")
+    recipients = [
+        email.strip()
+        for email in TO_EMAIL.split(",")
+        if email.strip()
+    ]
 
     html_body = f"""
     <html>
@@ -295,28 +304,26 @@ if __name__ == "__main__":
     try:
         log("Script started")
 
-
         weather = get_weather()
-
         log(f"Weather data: {weather}")
 
         forecast = get_forecast()
+        log("Forecast data fetched")
 
         analysis = analyze_forecast(forecast)
+        log(f"Forecast analysis: {analysis}")
 
         commute = get_commute()
+        log(f"Commute data: {commute}")
 
         summary = generate_summary(weather, forecast, analysis, commute)
-
         log("Summary generated")
 
         send_email(summary)
-
         log("Email sent successfully")
 
         print(summary)
 
     except Exception as e:
         log(f"ERROR: {e}")
-
         print("ERROR:", e)
