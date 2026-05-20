@@ -156,20 +156,24 @@ def analyze_forecast(forecast):
         "commute_risk_score": commute_risk_score,
     }
 
-def generate_summary(weather, forecast,analysis):
+def generate_summary(weather, forecast, analysis):
     prompt = f"""
-   You are a concise and useful London weather assistant.
+    You are a concise and useful London weather assistant.
 
     Write a short morning weather briefing.
 
-    Include:
-    - temperature, rounded to the nearest degree
-    - adjectives to describe the temperature, for example "brisk" for 9°C and "sweltering" for 25°C
-    - conditions
-    - clothing recommendation
-    - commute advice if relevant
-    - advice on what to see that is appropriate for the weather
-    - use the structured analysis below as the main source of reasoning
+    Requirements:
+    - Start email with "Hello lovely people."
+    - End email with "Take care everyone!"
+    - Each new sentence should be a new paragraph.
+    - Keep it under 120 words.
+    - Include temperature, rounded to the nearest degree.
+    - Use adjectives to describe the temperature, for example "brisk" for 9°C and "sweltering" for 25°C.
+    - Include conditions.
+    - Include clothing recommendation.
+    - Include commute advice if relevant.
+    - Include advice on what to see that is appropriate for the weather.
+    - Use the structured analysis below as the main source of reasoning.
 
     Current weather:
     Temperature: {weather['temp']}°C
@@ -192,28 +196,6 @@ def generate_summary(weather, forecast,analysis):
     Conditions: {forecast['tomorrow']['conditions']}
     """
 
-    Start email with "Hello lovely people"
-    End email with "Take care everyone!"
-    Each new sentence should be a new paragraph.
-
-    Keep it under 120 words.
-    Current weather:
-    Temperature: {weather['temp']}°C
-    Conditions: {weather['description']}
-    Humidity: {weather['humidity']}%
-    Wind Speed: {weather['wind']} m/s
-
-    Next 24 hours forecast:
-    {forecast['next_24_hours']}
-
-    Tomorrow:
-    Date: {forecast['tomorrow']['date']}
-    Min temp: {forecast['tomorrow']['min_temp']}°C
-    Max temp: {forecast['tomorrow']['max_temp']}°C
-    Max rain probability: {forecast['tomorrow']['max_rain_probability']}%
-    Conditions: {forecast['tomorrow']['conditions']}
-    """
-
     response = client.chat.completions.create(
         model="gpt-4.1-mini",
         messages=[
@@ -225,7 +207,6 @@ def generate_summary(weather, forecast,analysis):
     )
 
     return response.choices[0].message.content
-
 
 
 def send_email(body):
