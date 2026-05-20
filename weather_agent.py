@@ -178,7 +178,9 @@ if __name__ == "__main__":
 
         log(f"Weather data: {weather}")
 
-        summary = generate_summary(weather)
+        forecast = get_forecast()
+
+        summary = generate_summary(weather, forecast)
 
         log("Summary generated")
 
