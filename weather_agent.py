@@ -99,7 +99,64 @@ def get_forecast():
         "tomorrow": tomorrow_summary,
     }
 
-def generate_summary(weather, forecast):
+def analyze_forecast(forecast):
+    next_24_hours = forecast["next_24_hours"]
+
+    highest_rain = max(
+        next_24_hours,
+        key=lambda item: item["rain_probability"]
+    )
+
+    hottest_period = max(
+        next_24_hours,
+        key=lambda item: item["temp"]
+    )
+
+    coldest_period = min(
+        next_24_hours,
+        key=lambda item: item["temp"]
+    )
+
+    strongest_wind = max(
+        next_24_hours,
+        key=lambda item: item["wind"]
+    )
+
+    max_rain_probability = highest_rain["rain_probability"]
+    max_wind_speed = strongest_wind["wind"]
+
+    if max_rain_probability >= 70 or max_wind_speed >= 12:
+        commute_risk_score = "High"
+    elif max_rain_probability >= 40 or max_wind_speed >= 8:
+        commute_risk_score = "Medium"
+    else:
+        commute_risk_score = "Low"
+
+    return {
+        "highest_rain_probability": {
+            "time": highest_rain["time"],
+            "value": highest_rain["rain_probability"],
+            "conditions": highest_rain["description"],
+        },
+        "hottest_period": {
+            "time": hottest_period["time"],
+            "temp": hottest_period["temp"],
+            "conditions": hottest_period["description"],
+        },
+        "coldest_period": {
+            "time": coldest_period["time"],
+            "temp": coldest_period["temp"],
+            "conditions": coldest_period["description"],
+        },
+        "strongest_wind": {
+            "time": strongest_wind["time"],
+            "speed": strongest_wind["wind"],
+            "conditions": strongest_wind["description"],
+        },
+        "commute_risk_score": commute_risk_score,
+    }
+
+def generate_summary(weather, forecast,analysis):
     prompt = f"""
    You are a concise and useful London weather assistant.
 
@@ -112,6 +169,28 @@ def generate_summary(weather, forecast):
     - clothing recommendation
     - commute advice if relevant
     - advice on what to see that is appropriate for the weather
+    - use the structured analysis below as the main source of reasoning
+
+    Current weather:
+    Temperature: {weather['temp']}°C
+    Conditions: {weather['description']}
+    Humidity: {weather['humidity']}%
+    Wind Speed: {weather['wind']} m/s
+
+    Structured forecast analysis:
+    Highest rain probability: {analysis['highest_rain_probability']['value']}% at {analysis['highest_rain_probability']['time']} with {analysis['highest_rain_probability']['conditions']}
+    Hottest period: {analysis['hottest_period']['temp']}°C at {analysis['hottest_period']['time']} with {analysis['hottest_period']['conditions']}
+    Coldest period: {analysis['coldest_period']['temp']}°C at {analysis['coldest_period']['time']} with {analysis['coldest_period']['conditions']}
+    Strongest wind: {analysis['strongest_wind']['speed']} m/s at {analysis['strongest_wind']['time']} with {analysis['strongest_wind']['conditions']}
+    Commute risk score: {analysis['commute_risk_score']}
+
+    Tomorrow:
+    Date: {forecast['tomorrow']['date']}
+    Min temp: {forecast['tomorrow']['min_temp']}°C
+    Max temp: {forecast['tomorrow']['max_temp']}°C
+    Max rain probability: {forecast['tomorrow']['max_rain_probability']}%
+    Conditions: {forecast['tomorrow']['conditions']}
+    """
 
     Start email with "Hello lovely people"
     End email with "Take care everyone!"
@@ -174,13 +253,16 @@ if __name__ == "__main__":
     try:
         log("Script started")
 
+
         weather = get_weather()
 
         log(f"Weather data: {weather}")
 
         forecast = get_forecast()
 
-        summary = generate_summary(weather, forecast)
+        analysis = analyze_forecast(forecast)
+
+        summary = generate_summary(weather, forecast, analysis)
 
         log("Summary generated")
 
