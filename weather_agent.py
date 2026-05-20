@@ -48,6 +48,57 @@ def get_weather():
         "wind": data["wind"]["speed"],
     }
 
+def get_forecast():
+    url = (
+        "https://api.openweathermap.org/data/2.5/forecast"
+        f"?q={CITY}&appid={WEATHER_API_KEY}&units=metric"
+    )
+
+    response = requests.get(url)
+    data = response.json()
+
+    print("Forecast API response status:", response.status_code)
+
+    if response.status_code != 200:
+        raise Exception(f"Forecast API failed: {data}")
+
+    forecast_items = data["list"]
+
+    next_24_hours = forecast_items[:8]
+
+    hourly_summary = []
+    for item in next_24_hours:
+        hourly_summary.append({
+            "time": item["dt_txt"],
+            "temp": item["main"]["temp"],
+            "description": item["weather"][0]["description"],
+            "rain_probability": round(item.get("pop", 0) * 100),
+            "wind": item["wind"]["speed"],
+        })
+
+    tomorrow_date = forecast_items[8]["dt_txt"].split(" ")[0]
+
+    tomorrow_items = [
+        item for item in forecast_items
+        if item["dt_txt"].startswith(tomorrow_date)
+    ]
+
+    tomorrow_temps = [item["main"]["temp"] for item in tomorrow_items]
+    tomorrow_rain_probs = [item.get("pop", 0) for item in tomorrow_items]
+
+    tomorrow_summary = {
+        "date": tomorrow_date,
+        "min_temp": min(tomorrow_temps),
+        "max_temp": max(tomorrow_temps),
+        "max_rain_probability": round(max(tomorrow_rain_probs) * 100),
+        "conditions": tomorrow_items[0]["weather"][0]["description"],
+    }
+
+    return {
+        "next_24_hours": hourly_summary,
+        "tomorrow": tomorrow_summary,
+    }
+
 def generate_summary(weather):
     prompt = f"""
     You are a concise and useful London weather assistant.
