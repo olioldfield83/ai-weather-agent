@@ -32,5 +32,8 @@ jobs:
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
           TO_EMAIL: ${{ secrets.TO_EMAIL }}
           CITY: ${{ secrets.CITY }}
+          OPENROUTESERVICE_API_KEY: ${{ secrets.OPENROUTESERVICE_API_KEY }}
+          COMMUTE_ORIGIN: ${{ secrets.COMMUTE_ORIGIN }}
+          COMMUTE_DESTINATION: ${{ secrets.COMMUTE_DESTINATION }}
 
         run: python weather_agent.py
