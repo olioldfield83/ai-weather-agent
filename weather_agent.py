@@ -158,6 +158,37 @@ def analyze_forecast(forecast):
         "commute_risk_score": commute_risk_score,
     }
 
+def get_commute():
+    url = "https://api.openrouteservice.org/v2/directions/driving-car"
+
+    headers = {
+        "Authorization": OPENROUTESERVICE_API_KEY,
+        "Content-Type": "application/json",
+    }
+
+    body = {
+        "coordinates": [
+            [-0.1276, 51.5072],  # origin longitude, latitude
+            [-0.1425, 51.5154],  # destination longitude, latitude
+        ]
+    }
+
+    response = requests.post(url, json=body, headers=headers)
+
+    data = response.json()
+
+    print("OpenRouteService response:", data)
+
+    summary = data["routes"][0]["summary"]
+
+    distance_km = round(summary["distance"] / 1000, 1)
+    duration_minutes = round(summary["duration"] / 60)
+
+    return {
+        "distance": f"{distance_km} km",
+        "duration": f"{duration_minutes} mins",
+    }
+
 def generate_summary(weather, forecast, analysis):
     prompt = f"""
     You are a concise and useful London weather assistant.
@@ -173,7 +204,8 @@ def generate_summary(weather, forecast, analysis):
     - Use adjectives to describe the temperature, for example "brisk" for 9°C and "sweltering" for 25°C.
     - Include conditions.
     - Include clothing recommendation.
-    - Include commute advice if relevant.
+    - Include commute time and traffic impact.
+    - Mention whether the commute looks normal, delayed, or easy.
     - Include advice on what to see that is appropriate for the weather.
     - Use separate paragraphs for today and tomorrow's weather. Highlight if the weather is going to change.
     - Use the structured analysis below as the main source of reasoning.
@@ -197,6 +229,11 @@ def generate_summary(weather, forecast, analysis):
     Max temp: {forecast['tomorrow']['max_temp']}°C
     Max rain probability: {forecast['tomorrow']['max_rain_probability']}%
     Conditions: {forecast['tomorrow']['conditions']}
+
+    Commute:
+    Distance: {commute['distance']}
+    Normal duration: {commute['duration']}
+    Traffic duration: {commute['duration_in_traffic']}
     """
 
     response = client.chat.completions.create(
@@ -215,22 +252,39 @@ def generate_summary(weather, forecast, analysis):
 def send_email(body):
     recipients = TO_EMAIL.split(",")
 
-    msg = MIMEText(body)
+    html_body = f"""
+    <html>
+      <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #222;">
+        <div style="max-width: 600px; margin: auto; padding: 20px;">
+          <h2 style="color: #2563eb;">Weather & Commute Briefing — {CITY}</h2>
 
-    msg["Subject"] = f"Weather Update — {CITY}"
+          <div style="background: #f3f4f6; padding: 16px; border-radius: 10px;">
+            {body.replace(chr(10), "<br>")}
+          </div>
+
+          <p style="font-size: 12px; color: #666; margin-top: 20px;">
+            Sent automatically by your AI weather agent.
+          </p>
+        </div>
+      </body>
+    </html>
+    """
+
+    msg = MIMEText(html_body, "html")
+
+    msg["Subject"] = f"Weather & Commute Update — {CITY}"
     msg["From"] = EMAIL_ADDRESS
     msg["To"] = ", ".join(recipients)
 
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
         server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-
         server.sendmail(
             EMAIL_ADDRESS,
             recipients,
             msg.as_string()
         )
 
-    print("Email sent successfully")
+    print("HTML email sent successfully")
 
 
 if __name__ == "__main__":
@@ -246,7 +300,9 @@ if __name__ == "__main__":
 
         analysis = analyze_forecast(forecast)
 
-        summary = generate_summary(weather, forecast, analysis)
+        commute = get_commute()
+
+        summary = generate_summary(weather, forecast, analysis, commute)
 
         log("Summary generated")
 
