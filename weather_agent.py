@@ -16,7 +16,8 @@ EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 TO_EMAIL = os.getenv("TO_EMAIL")
 OPENROUTESERVICE_API_KEY = os.getenv("OPENROUTESERVICE_API_KEY")
-
+COMMUTE_ORIGIN = os.getenv("COMMUTE_ORIGIN")
+COMMUTE_DESTINATION = os.getenv("COMMUTE_DESTINATION")
 
 def log(message):
     with open("weather_log.txt", "a") as f:
