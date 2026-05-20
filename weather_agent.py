@@ -99,95 +99,33 @@ def get_forecast():
         "tomorrow": tomorrow_summary,
     }
 
-def analyze_forecast(forecast):
-    next_24_hours = forecast["next_24_hours"]
-
-    highest_rain = max(
-        next_24_hours,
-        key=lambda item: item["rain_probability"]
-    )
-
-    hottest_period = max(
-        next_24_hours,
-        key=lambda item: item["temp"]
-    )
-
-    coldest_period = min(
-        next_24_hours,
-        key=lambda item: item["temp"]
-    )
-
-    strongest_wind = max(
-        next_24_hours,
-        key=lambda item: item["wind"]
-    )
-
-    max_rain_probability = highest_rain["rain_probability"]
-    max_wind_speed = strongest_wind["wind"]
-
-    if max_rain_probability >= 70 or max_wind_speed >= 12:
-        commute_risk_score = "High"
-    elif max_rain_probability >= 40 or max_wind_speed >= 8:
-        commute_risk_score = "Medium"
-    else:
-        commute_risk_score = "Low"
-
-    return {
-        "highest_rain_probability": {
-            "time": highest_rain["time"],
-            "value": highest_rain["rain_probability"],
-            "conditions": highest_rain["description"],
-        },
-        "hottest_period": {
-            "time": hottest_period["time"],
-            "temp": hottest_period["temp"],
-            "conditions": hottest_period["description"],
-        },
-        "coldest_period": {
-            "time": coldest_period["time"],
-            "temp": coldest_period["temp"],
-            "conditions": coldest_period["description"],
-        },
-        "strongest_wind": {
-            "time": strongest_wind["time"],
-            "speed": strongest_wind["wind"],
-            "conditions": strongest_wind["description"],
-        },
-        "commute_risk_score": commute_risk_score,
-    }
-
-def generate_summary(weather, forecast, analysis):
+def generate_summary(weather, forecast):
     prompt = f"""
-    You are a concise London weather assistant.
+   You are a concise and useful London weather assistant.
 
-    Write a practical weather email with these sections:
+    Write a short morning weather briefing.
 
-    Current conditions
-    Next 24 hours
-    Tomorrow
-    Recommendation
+    Include:
+    - temperature, rounded to the nearest degree
+    - adjectives to describe the temperature, for example "brisk" for 9°C and "sweltering" for 25°C
+    - conditions
+    - clothing recommendation
+    - commute advice if relevant
+    - advice on what to see that is appropriate for the weather
 
-    Rules:
-    - under 150 words
-    - professional but friendly tone
-    - "Hello lovely people" as the initial greeting
-    - "Take care" as the end of the email
-    - mention commute risk
-    - mention umbrella advice
-    - use the structured analysis below as the main source of reasoning
+    Start email with "Hello lovely people"
+    End email with "Take care everyone!"
+    Each new sentence should be a new paragraph.
 
+    Keep it under 120 words.
     Current weather:
     Temperature: {weather['temp']}°C
     Conditions: {weather['description']}
     Humidity: {weather['humidity']}%
     Wind Speed: {weather['wind']} m/s
 
-    Structured forecast analysis:
-    Highest rain probability: {analysis['highest_rain_probability']['value']}% at {analysis['highest_rain_probability']['time']} with {analysis['highest_rain_probability']['conditions']}
-    Hottest period: {analysis['hottest_period']['temp']}°C at {analysis['hottest_period']['time']} with {analysis['hottest_period']['conditions']}
-    Coldest period: {analysis['coldest_period']['temp']}°C at {analysis['coldest_period']['time']} with {analysis['coldest_period']['conditions']}
-    Strongest wind: {analysis['strongest_wind']['speed']} m/s at {analysis['strongest_wind']['time']} with {analysis['strongest_wind']['conditions']}
-    Commute risk score: {analysis['commute_risk_score']}
+    Next 24 hours forecast:
+    {forecast['next_24_hours']}
 
     Tomorrow:
     Date: {forecast['tomorrow']['date']}
@@ -208,6 +146,7 @@ def generate_summary(weather, forecast, analysis):
     )
 
     return response.choices[0].message.content
+
 
 
 def send_email(body):
@@ -237,13 +176,15 @@ if __name__ == "__main__":
 
         weather = get_weather()
 
-forecast = get_forecast()
+        log(f"Weather data: {weather}")
 
-analysis = analyze_forecast(forecast)
+        forecast = get_forecast()
 
-summary = generate_summary(weather, forecast, analysis)
+        summary = generate_summary(weather, forecast)
 
-send_email(summary)
+        log("Summary generated")
+
+        send_email(summary)
 
         log("Email sent successfully")
 
