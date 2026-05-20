@@ -15,7 +15,6 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 TO_EMAIL = os.getenv("TO_EMAIL")
-OPENROUTESERVICE_API_KEY = os.getenv("OPENROUTESERVICE_API_KEY")
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -160,60 +159,90 @@ def analyze_forecast(forecast):
 
 
 def get_commute():
-    url = "https://api.openrouteservice.org/v2/directions/driving-car"
+    url = "https://api.tfl.gov.uk/Journey/JourneyResults/Morden/to/Westminster"
 
-    headers = {
-        "Authorization": OPENROUTESERVICE_API_KEY,
-        "Content-Type": "application/json",
+    params = {
+        "mode": "tube",
     }
 
-    body = {
-        "coordinates": [
-            [-0.1945, 51.4022],  # Morden
-            [-0.1246, 51.4975],  # Westminster
-        ]
-    }
-
-    response = requests.post(url, json=body, headers=headers)
+    response = requests.get(url, params=params)
     data = response.json()
 
-    print("OpenRouteService status:", response.status_code)
-    print("OpenRouteService response:", data)
+    print("TfL Journey status:", response.status_code)
+    print("TfL Journey response:", data)
 
     if response.status_code != 200:
-        raise Exception(f"OpenRouteService failed: {data}")
+        raise Exception(f"TfL Journey API failed: {data}")
 
-    if "routes" not in data:
-        raise Exception(f"No route found: {data}")
+    if "journeys" not in data or len(data["journeys"]) == 0:
+        raise Exception(f"No TfL journey found: {data}")
 
-    summary = data["routes"][0]["summary"]
-
-    distance_km = round(summary["distance"] / 1000, 1)
-    duration_minutes = round(summary["duration"] / 60)
+    journey = data["journeys"][0]
 
     return {
-        "distance": f"{distance_km} km",
-        "duration": f"{duration_minutes} mins",
+        "route": "Morden to Westminster",
+        "duration": f"{journey['duration']} mins",
+        "start_time": journey.get("startDateTime"),
+        "arrival_time": journey.get("arrivalDateTime"),
     }
 
 
-def generate_summary(weather, forecast, analysis, commute):
-    prompt = f"""
-    You are a concise and useful London weather assistant.
+def get_tube_status():
+    url = "https://api.tfl.gov.uk/Line/Mode/tube/Status"
 
-    Write a short morning weather briefing for today and tomorrow's weather.
+    response = requests.get(url)
+    data = response.json()
+
+    print("TfL Tube status:", response.status_code)
+    print("TfL Tube response:", data)
+
+    if response.status_code != 200:
+        raise Exception(f"TfL Line Status API failed: {data}")
+
+    relevant_lines = [
+        "northern",
+        "jubilee",
+        "district",
+        "circle",
+    ]
+
+    statuses = []
+
+    for line in data:
+        line_id = line["id"]
+
+        if line_id in relevant_lines:
+            line_statuses = [
+                status["statusSeverityDescription"]
+                for status in line["lineStatuses"]
+            ]
+
+            statuses.append({
+                "line": line["name"],
+                "status": ", ".join(line_statuses),
+            })
+
+    return statuses
+
+
+def generate_summary(weather, forecast, analysis, commute, tube_status):
+    prompt = f"""
+    You are a concise and useful London weather and Tube commute assistant.
+
+    Write a short morning briefing for today's weather, tomorrow's weather, and the commute.
 
     Requirements:
     - Start email with "Hello lovely people."
     - End email with "Take care everyone!"
     - Each new sentence should be a new paragraph.
-    - Keep it under 120 words.
+    - Keep it under 140 words.
     - Include temperature, rounded to the nearest degree.
     - Use adjectives to describe the temperature, for example "brisk" for 9°C and "sweltering" for 25°C.
     - Include conditions.
     - Include clothing recommendation.
-    - Include commute time.
-    - Do not claim live traffic information; OpenRouteService only provides estimated routing time.
+    - Include TfL Tube commute duration.
+    - Mention relevant Tube disruption status.
+    - If Tube lines look normal, say the commute appears straightforward.
     - Mention whether the commute looks weather-affected based on rain and wind.
     - Include advice on what to see that is appropriate for the weather.
     - Use separate paragraphs for today and tomorrow's weather. Highlight if the weather is going to change.
@@ -230,7 +259,7 @@ def generate_summary(weather, forecast, analysis, commute):
     Hottest period: {analysis['hottest_period']['temp']}°C at {analysis['hottest_period']['time']} with {analysis['hottest_period']['conditions']}
     Coldest period: {analysis['coldest_period']['temp']}°C at {analysis['coldest_period']['time']} with {analysis['coldest_period']['conditions']}
     Strongest wind: {analysis['strongest_wind']['speed']} m/s at {analysis['strongest_wind']['time']} with {analysis['strongest_wind']['conditions']}
-    Commute risk score: {analysis['commute_risk_score']}
+    Weather-based commute risk score: {analysis['commute_risk_score']}
 
     Tomorrow:
     Date: {forecast['tomorrow']['date']}
@@ -239,10 +268,14 @@ def generate_summary(weather, forecast, analysis, commute):
     Max rain probability: {forecast['tomorrow']['max_rain_probability']}%
     Conditions: {forecast['tomorrow']['conditions']}
 
-    Commute:
-    Route: Morden to Westminster
-    Distance: {commute['distance']}
+    TfL Tube commute:
+    Route: {commute['route']}
     Estimated duration: {commute['duration']}
+    Start time: {commute['start_time']}
+    Arrival time: {commute['arrival_time']}
+
+    Relevant Tube line status:
+    {tube_status}
     """
 
     response = client.chat.completions.create(
@@ -269,7 +302,7 @@ def send_email(body):
     <html>
       <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #222;">
         <div style="max-width: 600px; margin: auto; padding: 20px;">
-          <h2 style="color: #2563eb;">Weather & Commute Briefing — {CITY}</h2>
+          <h2 style="color: #2563eb;">Weather & Tube Commute Briefing — {CITY}</h2>
 
           <div style="background: #f3f4f6; padding: 16px; border-radius: 10px;">
             {body.replace(chr(10), "<br>")}
@@ -285,7 +318,7 @@ def send_email(body):
 
     msg = MIMEText(html_body, "html")
 
-    msg["Subject"] = f"Weather & Commute Update — {CITY}"
+    msg["Subject"] = f"Weather & Tube Commute Update — {CITY}"
     msg["From"] = EMAIL_ADDRESS
     msg["To"] = ", ".join(recipients)
 
@@ -314,9 +347,18 @@ if __name__ == "__main__":
         log(f"Forecast analysis: {analysis}")
 
         commute = get_commute()
-        log(f"Commute data: {commute}")
+        log(f"TfL commute data: {commute}")
 
-        summary = generate_summary(weather, forecast, analysis, commute)
+        tube_status = get_tube_status()
+        log(f"Tube status: {tube_status}")
+
+        summary = generate_summary(
+            weather,
+            forecast,
+            analysis,
+            commute,
+            tube_status
+        )
         log("Summary generated")
 
         send_email(summary)
