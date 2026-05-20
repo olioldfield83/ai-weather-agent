@@ -99,9 +99,9 @@ def get_forecast():
         "tomorrow": tomorrow_summary,
     }
 
-def generate_summary(weather):
+def generate_summary(weather, forecast):
     prompt = f"""
-    You are a concise and useful London weather assistant.
+   You are a concise and useful London weather assistant.
 
     Write a short morning weather briefing.
 
@@ -118,12 +118,21 @@ def generate_summary(weather):
     Each new sentence should be a new paragraph.
 
     Keep it under 120 words.
-
-    Weather data:
+    Current weather:
     Temperature: {weather['temp']}°C
     Conditions: {weather['description']}
     Humidity: {weather['humidity']}%
     Wind Speed: {weather['wind']} m/s
+
+    Next 24 hours forecast:
+    {forecast['next_24_hours']}
+
+    Tomorrow:
+    Date: {forecast['tomorrow']['date']}
+    Min temp: {forecast['tomorrow']['min_temp']}°C
+    Max temp: {forecast['tomorrow']['max_temp']}°C
+    Max rain probability: {forecast['tomorrow']['max_rain_probability']}%
+    Conditions: {forecast['tomorrow']['conditions']}
     """
 
     response = client.chat.completions.create(
@@ -137,6 +146,7 @@ def generate_summary(weather):
     )
 
     return response.choices[0].message.content
+
 
 
 def send_email(body):
