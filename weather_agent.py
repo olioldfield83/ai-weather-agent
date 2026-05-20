@@ -224,6 +224,23 @@ def get_tube_status():
 
     return statuses
 
+try:
+    commute = get_commute()
+except Exception as e:
+    log(f"TfL commute failed: {e}")
+    commute = {
+        "route": "Morden to Westminster",
+        "duration": "Unavailable",
+        "start_time": "Unavailable",
+        "arrival_time": "Unavailable",
+    }
+
+try:
+    tube_status = get_tube_status()
+except Exception as e:
+    log(f"Tube status failed: {e}")
+    tube_status = [{"line": "TfL", "status": "Unavailable"}]
+
 
 def generate_summary(weather, forecast, analysis, commute, tube_status):
     prompt = f"""
@@ -367,5 +384,6 @@ if __name__ == "__main__":
         print(summary)
 
     except Exception as e:
-        log(f"ERROR: {e}")
-        print("ERROR:", e)
+    log(f"ERROR: {e}")
+    print("ERROR:", e)
+    raise
