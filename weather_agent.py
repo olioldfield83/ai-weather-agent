@@ -384,6 +384,6 @@ if __name__ == "__main__":
         print(summary)
 
     except Exception as e:
-    log(f"ERROR: {e}")
-    print("ERROR:", e)
-    raise
+        log(f"ERROR: {e}")
+        print("ERROR:", e)
+        raise
