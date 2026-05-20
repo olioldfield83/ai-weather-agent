@@ -160,7 +160,7 @@ def generate_summary(weather, forecast, analysis):
     prompt = f"""
     You are a concise and useful London weather assistant.
 
-    Write a short morning weather briefing.
+    Write a short morning weather briefing for today and tomorrow's weather. 
 
     Requirements:
     - Start email with "Hello lovely people."
@@ -173,6 +173,7 @@ def generate_summary(weather, forecast, analysis):
     - Include clothing recommendation.
     - Include commute advice if relevant.
     - Include advice on what to see that is appropriate for the weather.
+    - Use separate paragraphs for today and tomorrow's weather. Highlight if the weather is going to change.
     - Use the structured analysis below as the main source of reasoning.
 
     Current weather:
