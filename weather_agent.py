@@ -189,7 +189,7 @@ def get_commute():
         "duration": f"{duration_minutes} mins",
     }
 
-def generate_summary(weather, forecast, analysis):
+def generate_summary(weather, forecast, analysis, commute):
     prompt = f"""
     You are a concise and useful London weather assistant.
 
@@ -231,9 +231,8 @@ def generate_summary(weather, forecast, analysis):
     Conditions: {forecast['tomorrow']['conditions']}
 
     Commute:
-    Distance: {commute['distance']}
-    Normal duration: {commute['duration']}
-    Traffic duration: {commute['duration_in_traffic']}
+Distance: {commute['distance']}
+Estimated duration: {commute['duration']}
     """
 
     response = client.chat.completions.create(
