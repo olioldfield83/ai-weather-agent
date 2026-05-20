@@ -167,11 +167,11 @@ def get_commute():
     }
 
     body = {
-        "coordinates": [
-            [-0.1276, 51.5072],  # origin longitude, latitude
-            [-0.1425, 51.5154],  # destination longitude, latitude
-        ]
-    }
+    "coordinates": [
+        [-0.1945, 51.4022],  # Morden
+        [-0.1246, 51.4975],  # Westminster
+    ]
+}
 
     response = requests.post(url, json=body, headers=headers)
 
