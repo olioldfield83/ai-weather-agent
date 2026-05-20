@@ -38,10 +38,15 @@ def get_weather():
 
     data = response.json()
 
-    print("Full API response:", data)
+print("OpenRouteService response:", data)
 
-    if response.status_code != 200:
-        raise Exception(f"Weather API failed: {data}")
+if response.status_code != 200:
+    raise Exception(f"OpenRouteService failed: {data}")
+
+if "routes" not in data:
+    raise Exception(f"No route found: {data}")
+
+summary = data["routes"][0]["summary"])
 
     return {
         "temp": data["main"]["temp"],
