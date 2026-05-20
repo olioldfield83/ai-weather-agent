@@ -159,7 +159,7 @@ def analyze_forecast(forecast):
 
 
 def get_commute():
-    url = "https://api.tfl.gov.uk/Journey/JourneyResults/Morden/to/Westminster"
+    url = "https://api.tfl.gov.uk/Journey/JourneyResults/1000151/to/1000266"
 
     params = {
         "mode": "tube",
