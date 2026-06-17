@@ -252,7 +252,7 @@ def generate_summary(weather, forecast, analysis, commute, tube_status):
     - Start email with "Hello lovely people."
     - End email with "Take care everyone!"
     - Each new sentence should be a new paragraph.
-    - Keep it under 140 words.
+    - Keep it under 200 words.
     - Include temperature, rounded to the nearest degree.
     - Use adjectives to describe the temperature, for example "brisk" for 9°C and "sweltering" for 25°C.
     - Include conditions.
@@ -261,7 +261,7 @@ def generate_summary(weather, forecast, analysis, commute, tube_status):
     - Mention relevant Tube disruption status.
     - If Tube lines look normal, say the commute appears straightforward.
     - Mention whether the commute looks weather-affected based on rain and wind.
-    - Include advice on what to see that is appropriate for the weather.
+    - Include advice on what to see that is appropriate for the weather and close-by to Morden, south-west London.
     - Use separate paragraphs for today and tomorrow's weather. Highlight if the weather is going to change.
     - Use the structured analysis below as the main source of reasoning.
 
