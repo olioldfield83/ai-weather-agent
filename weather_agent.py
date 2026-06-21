@@ -262,6 +262,8 @@ def generate_summary(weather, forecast, analysis, commute, tube_status):
     - If Tube lines look normal, say the commute appears straightforward.
     - Mention whether the commute looks weather-affected based on rain and wind.
     - Include advice on what to see that is appropriate for the weather and within a 45 minute commute of Morden, south-west London.
+    - *Do Not* recommend the same destination more than twice in one week. 
+    - Check out websites such as Time Out London for appropriate recommendations. 
     - Use separate paragraphs for today and tomorrow's weather. Highlight if the weather is going to change.
     - Use the structured analysis below as the main source of reasoning.
 
