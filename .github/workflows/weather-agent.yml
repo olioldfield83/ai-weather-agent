@@ -6,7 +6,11 @@ on:
     branches:
       - main
   schedule:
-     - cron: "17 08 * * *"
+    - cron: "17 08 * * *"
+
+permissions:
+  contents: write
+
 jobs:
   send-weather-email:
     runs-on: ubuntu-latest
@@ -14,6 +18,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -32,8 +38,12 @@ jobs:
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
           TO_EMAIL: ${{ secrets.TO_EMAIL }}
           CITY: ${{ secrets.CITY }}
-          OPENROUTESERVICE_API_KEY: ${{ secrets.OPENROUTESERVICE_API_KEY }}
-          COMMUTE_ORIGIN: ${{ secrets.COMMUTE_ORIGIN }}
-          COMMUTE_DESTINATION: ${{ secrets.COMMUTE_DESTINATION }}
-
         run: python weather_agent.py
+
+      - name: Commit recommendation history
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add recommendation_history.csv
+          git commit -m "Update recommendation history" || echo "No recommendation history changes"
+          git push
