@@ -1,0 +1,322 @@
+name,category,area,indoor,outdoor,rain_good,cold_good,hot_good,dry_good,wind_good,max_commute_mins,description
+British Museum,museum,Bloomsbury,yes,no,yes,yes,yes,yes,yes,45,"World culture museum, ideal for rainy or cold days"
+Natural History Museum,museum,South Kensington,yes,no,yes,yes,yes,yes,yes,45,"Major natural history museum, good for wet or windy weather"
+Victoria and Albert Museum,museum,South Kensington,yes,no,yes,yes,yes,yes,yes,45,"Design and decorative arts museum, strong indoor option"
+Science Museum,museum,South Kensington,yes,no,yes,yes,yes,yes,yes,45,"Interactive science museum, ideal for mixed weather"
+National Gallery,gallery,Trafalgar Square,yes,no,yes,yes,yes,yes,yes,35,"Classic art gallery, excellent rainy-day choice"
+National Portrait Gallery,gallery,Trafalgar Square,yes,no,yes,yes,yes,yes,yes,35,Portrait gallery close to central London sights
+Tate Modern,gallery,Bankside,yes,no,yes,yes,yes,yes,yes,40,Modern art gallery on the South Bank
+Tate Britain,gallery,Pimlico,yes,no,yes,yes,yes,yes,yes,35,British art gallery with strong indoor collections
+Wallace Collection,gallery,Marylebone,yes,no,yes,yes,yes,yes,yes,45,Elegant collection of fine art and decorative objects
+Royal Academy of Arts,gallery,Piccadilly,yes,no,yes,yes,yes,yes,yes,40,"Major exhibition venue, good for grey weather"
+The Courtauld Gallery,gallery,Somerset House,yes,no,yes,yes,yes,yes,yes,40,Compact art gallery with major Impressionist works
+Whitechapel Gallery,gallery,Whitechapel,yes,no,yes,yes,yes,yes,yes,55,"Contemporary art gallery, good for cooler days"
+Hayward Gallery,gallery,South Bank,yes,no,yes,yes,yes,yes,yes,40,Contemporary exhibitions near the Thames
+Serpentine North Gallery,gallery,Kensington Gardens,yes,no,yes,yes,yes,yes,yes,45,Small contemporary gallery beside parkland
+Serpentine South Gallery,gallery,Kensington Gardens,yes,no,yes,yes,yes,yes,yes,45,Contemporary gallery ideal with a park walk
+Dulwich Picture Gallery,gallery,Dulwich,yes,no,yes,yes,yes,yes,yes,45,Historic art gallery in leafy south London
+Horniman Museum and Gardens,museum,Forest Hill,yes,no,yes,yes,yes,yes,yes,55,"Museum with gardens and views, good in mixed weather"
+Wellcome Collection,museum,Euston,yes,no,yes,yes,yes,yes,yes,50,"Health and culture museum, ideal rainy-day option"
+Sir John Soane's Museum,museum,Lincoln's Inn Fields,yes,no,yes,yes,yes,yes,yes,45,"Atmospheric house museum, good for cooler weather"
+Charles Dickens Museum,museum,Bloomsbury,yes,no,yes,yes,yes,yes,yes,45,Historic author’s house museum
+Foundling Museum,museum,Bloomsbury,yes,no,yes,yes,yes,yes,yes,45,Museum of social history and art
+Garden Museum,museum,Lambeth,yes,no,yes,yes,yes,yes,yes,35,"Museum by Lambeth Palace, good for garden lovers"
+The Cinema Museum,museum,Kennington,yes,no,yes,yes,yes,yes,yes,35,"Small film-history museum, best for rainy days"
+London Transport Museum,museum,Covent Garden,yes,no,yes,yes,yes,yes,yes,40,"Transport history museum, good for Tube enthusiasts"
+Museum of London Docklands,museum,West India Quay,yes,no,yes,yes,yes,yes,yes,55,"Docklands history museum, strong wet-weather pick"
+Imperial War Museum London,museum,Lambeth,yes,no,yes,yes,yes,yes,yes,35,"Large war and history museum, indoor and reliable"
+Design Museum,museum,Kensington,yes,no,yes,yes,yes,yes,yes,50,Design museum with strong exhibitions
+Young V&A,museum,Bethnal Green,yes,no,yes,yes,yes,yes,yes,60,Family-friendly design and childhood museum
+V&A East Storehouse,museum,Stratford,yes,no,yes,yes,yes,yes,yes,70,Large museum storehouse and cultural collection
+Bank of England Museum,museum,City of London,yes,no,yes,yes,yes,yes,yes,45,Compact financial history museum
+Postal Museum,museum,Clerkenwell,yes,no,yes,yes,yes,yes,yes,50,Postal history museum with underground Mail Rail
+Cartoon Museum,museum,Fitzrovia,yes,no,yes,yes,yes,yes,yes,45,Small museum for cartoons and comics
+Sherlock Holmes Museum,museum,Baker Street,yes,no,yes,yes,yes,yes,yes,50,Literary-themed museum for Sherlock Holmes fans
+Handel Hendrix House,museum,Mayfair,yes,no,yes,yes,yes,yes,yes,45,Music history museum in central London
+Museum of Brands,museum,Notting Hill,yes,no,yes,yes,yes,yes,yes,55,"Branding and packaging museum, good indoor stop"
+Guildhall Art Gallery,gallery,City of London,yes,no,yes,yes,yes,yes,yes,45,City art gallery with Roman amphitheatre remains
+Barbican Art Gallery,gallery,Barbican,yes,no,yes,yes,yes,yes,yes,50,"Major arts centre gallery, good for rainy days"
+Queen's House,gallery,Greenwich,yes,no,yes,yes,yes,yes,yes,60,Elegant art gallery in Maritime Greenwich
+National Maritime Museum,museum,Greenwich,yes,no,yes,yes,yes,yes,yes,60,"Maritime history museum, good for mixed weather"
+Cutty Sark,historic ship,Greenwich,yes,no,yes,yes,yes,yes,yes,60,Historic ship attraction partly indoors
+Royal Observatory Greenwich,museum,Greenwich,yes,no,yes,yes,yes,yes,yes,60,Historic observatory with city views
+The Fan Museum,museum,Greenwich,yes,no,yes,yes,yes,yes,yes,60,Small specialist museum in Greenwich
+London Canal Museum,museum,King's Cross,yes,no,yes,yes,yes,yes,yes,55,Canal history museum near Regent's Canal
+Freud Museum London,museum,Hampstead,yes,no,yes,yes,yes,yes,yes,60,Historic house museum devoted to Freud
+Keats House,museum,Hampstead,yes,no,yes,yes,yes,yes,yes,60,Poet’s house near Hampstead Heath
+Grant Museum of Zoology,museum,Bloomsbury,yes,no,yes,yes,yes,yes,yes,45,"Small zoology museum, good for curious rainy days"
+Petrie Museum of Egyptian Archaeology,museum,Bloomsbury,yes,no,yes,yes,yes,yes,yes,45,Compact Egyptian archaeology museum
+Florence Nightingale Museum,museum,Waterloo,yes,no,yes,yes,yes,yes,yes,35,Small healthcare-history museum near Westminster
+Brunel Museum,museum,Rotherhithe,yes,no,yes,yes,yes,yes,yes,55,Engineering museum near the Thames Tunnel
+Ragged School Museum,museum,Mile End,yes,no,yes,yes,yes,yes,yes,60,Social history museum in east London
+Leighton House,museum,Holland Park,yes,no,yes,yes,yes,yes,yes,55,Historic artist’s house with striking interiors
+18 Stafford Terrace,museum,Kensington,yes,no,yes,yes,yes,yes,yes,55,Victorian artist-home museum
+Two Temple Place,gallery,Temple,yes,no,yes,yes,yes,yes,yes,40,Historic riverside exhibition venue
+Estorick Collection,gallery,Islington,yes,no,yes,yes,yes,yes,yes,60,Modern Italian art gallery
+Camden Art Centre,gallery,Camden,yes,no,yes,yes,yes,yes,yes,60,Contemporary gallery in north London
+South London Gallery,gallery,Peckham,yes,no,yes,yes,yes,yes,yes,50,Contemporary art gallery in south London
+Photographers' Gallery,gallery,Soho,yes,no,yes,yes,yes,yes,yes,40,Photography gallery in central London
+Institute of Contemporary Arts,gallery,The Mall,yes,no,yes,yes,yes,yes,yes,40,Contemporary arts venue near St James’s Park
+Saatchi Gallery,gallery,Chelsea,yes,no,yes,yes,yes,yes,yes,40,Contemporary gallery near Sloane Square
+Royal Institute of British Architects Gallery,gallery,Marylebone,yes,no,yes,yes,yes,yes,yes,45,Architecture exhibitions and design displays
+House of Illustration / Quentin Blake Centre,gallery,Clerkenwell,yes,no,yes,yes,yes,yes,yes,50,Illustration-focused cultural venue
+Somerset House exhibitions,gallery,Strand,yes,no,yes,yes,yes,yes,yes,40,Indoor exhibitions around a grand courtyard
+BFI Southbank,cinema,South Bank,yes,no,yes,yes,yes,yes,yes,35,"Film venue, good for wet or cold evenings"
+Prince Charles Cinema,cinema,Leicester Square,yes,no,yes,yes,yes,yes,yes,40,Cult cinema in the West End
+Electric Cinema Portobello,cinema,Notting Hill,yes,no,yes,yes,yes,yes,yes,55,Comfortable historic cinema
+Richmond Park,park,Richmond,no,yes,no,no,yes,yes,no,50,Large royal park best for dry calm weather
+Hyde Park,park,Hyde Park,no,yes,no,no,yes,yes,no,40,Central royal park for walks and boating
+Kensington Gardens,park,Kensington,no,yes,no,no,yes,yes,no,45,Formal gardens near museums and galleries
+Regent's Park,park,Regent's Park,no,yes,no,no,yes,yes,no,55,Elegant park with gardens and open lawns
+St James's Park,park,Westminster,no,yes,no,no,yes,yes,no,35,Central park near royal landmarks
+Green Park,park,Westminster,no,yes,no,no,yes,yes,no,35,Simple central park walk near Buckingham Palace
+Battersea Park,park,Battersea,no,yes,no,no,yes,yes,no,35,Riverside park with gardens and paths
+Holland Park,park,Holland Park,no,yes,no,no,yes,yes,no,55,Leafy park with Kyoto Garden
+Kyoto Garden,garden,Holland Park,no,yes,no,no,yes,yes,no,55,"Small Japanese-style garden, best in calm dry weather"
+Greenwich Park,park,Greenwich,no,yes,no,no,yes,yes,no,60,Historic park with views across London
+Hampstead Heath,park,Hampstead,no,yes,no,no,yes,yes,no,65,Large open heath with skyline views
+Parliament Hill,viewpoint,Hampstead Heath,no,yes,no,no,no,yes,no,65,Classic skyline viewpoint for clear days
+Kew Gardens,garden,Kew,no,yes,no,no,yes,yes,no,55,"Botanic gardens, best for warm dry days"
+Chelsea Physic Garden,garden,Chelsea,no,yes,no,no,yes,yes,no,45,Historic walled medicinal garden
+Brockwell Park,park,Herne Hill,no,yes,no,no,yes,yes,no,45,South London park with views and lido
+Dulwich Park,park,Dulwich,no,yes,no,no,yes,yes,no,45,Calm landscaped park near Dulwich Village
+Crystal Palace Park,park,Crystal Palace,no,yes,no,no,yes,yes,no,60,Park with dinosaur sculptures and terraces
+Clapham Common,park,Clapham,no,yes,no,no,yes,yes,no,35,Large common for local walks
+Wimbledon Common,common,Wimbledon,no,yes,no,no,no,yes,no,35,Wooded common for dry-weather walks
+Morden Hall Park,park,Morden,no,yes,no,no,yes,yes,no,15,National Trust parkland close to Morden
+Morden Park,park,Morden,no,yes,no,no,yes,yes,no,10,Local park and open green space
+Ravensbury Park,park,Morden,no,yes,no,no,yes,yes,no,15,Small riverside park by the Wandle
+Nonsuch Park,park,Cheam,no,yes,no,no,yes,yes,no,35,Large parkland and historic mansion grounds
+Wandle Meadow Nature Park,nature reserve,Colliers Wood,no,no,no,no,no,yes,no,20,Local nature reserve along the Wandle
+Wimbledon Park,park,Wimbledon,no,yes,no,no,yes,yes,no,30,Park with lake and open space
+Wandsworth Common,common,Wandsworth,no,yes,no,no,no,yes,no,35,Leafy common with ponds and paths
+Tooting Common,common,Tooting,no,yes,no,no,no,yes,no,25,Large common and woodland walks
+Kennington Park,park,Kennington,no,yes,no,no,yes,yes,no,35,Historic park south of the river
+Burgess Park,park,Camberwell,no,yes,no,no,yes,yes,no,45,Large south London park with lake
+Southwark Park,park,Rotherhithe,no,yes,no,no,yes,yes,no,55,Victorian park near Bermondsey
+Peckham Rye Park,park,Peckham,no,yes,no,no,yes,yes,no,50,Park and common with gardens
+Nunhead Cemetery,cemetery,Nunhead,no,yes,no,no,no,yes,no,55,Atmospheric woodland cemetery
+Highgate Cemetery,cemetery,Highgate,no,yes,no,no,no,yes,no,65,"Historic cemetery, best in dry weather"
+Abney Park Cemetery,cemetery,Stoke Newington,no,yes,no,no,no,yes,no,70,Woodland cemetery and nature reserve
+Brompton Cemetery,cemetery,West Brompton,no,yes,no,no,no,yes,no,45,Historic cemetery near Earl’s Court
+Crossbones Garden,garden,Borough,no,yes,no,no,yes,yes,no,40,Small memorial garden near Borough
+Postman's Park,garden,City of London,no,yes,no,no,yes,yes,no,45,Quiet garden with memorial plaques
+Isabella Plantation,garden,Richmond Park,no,yes,no,no,yes,yes,no,55,Woodland garden inside Richmond Park
+Bushy Park,park,Teddington,no,yes,no,no,yes,yes,no,65,Large royal park near Hampton Court
+Richmond Riverside,riverside walk,Richmond,no,yes,no,no,yes,yes,no,50,Scenic riverside walk for dry weather
+Ham House and Garden,historic house,Richmond,no,no,no,no,no,yes,no,60,Historic house and riverside garden
+Chiswick House and Gardens,garden,Chiswick,no,yes,no,no,yes,yes,no,60,Historic villa and landscaped gardens
+Eltham Palace Gardens,garden,Eltham,no,yes,no,no,yes,yes,no,70,Art deco palace grounds and gardens
+Fulham Palace Gardens,garden,Fulham,no,yes,no,no,yes,yes,no,45,Historic palace garden by the Thames
+London Wetland Centre,nature reserve,Barnes,no,no,no,no,no,yes,no,45,Wetland reserve good for calm dry days
+Thames Barrier Park,park,Silvertown,no,yes,no,no,yes,yes,no,75,Modern riverside park with barrier views
+Queen Elizabeth Olympic Park,park,Stratford,no,yes,no,no,yes,yes,no,70,Large park with waterways and public art
+Victoria Park,park,Tower Hamlets,no,yes,no,no,yes,yes,no,65,East London park with canals and cafes
+Alexandra Palace Park,park,Alexandra Palace,no,yes,no,no,yes,yes,no,75,North London park with panoramic views
+Waterlow Park,park,Highgate,no,yes,no,no,yes,yes,no,70,Hillside park near Highgate Village
+Primrose Hill,viewpoint,Primrose Hill,no,yes,no,no,no,yes,no,55,Classic skyline view in dry clear weather
+Lavender Garden at Vauxhall Park,garden,Vauxhall,no,yes,no,no,yes,yes,no,35,Small garden close to central London
+Myatt's Fields Park,park,Camberwell,no,yes,no,no,yes,yes,no,40,Victorian park with gardens
+Cannizaro Park,park,Wimbledon,no,yes,no,no,yes,yes,no,35,Ornamental gardens near Wimbledon Common
+King George's Park,park,Wandsworth,no,yes,no,no,yes,yes,no,35,Local park along the Wandle
+Roehampton Gate Richmond Park,park,Roehampton,no,yes,no,no,yes,yes,no,45,Quieter access point into Richmond Park
+Beddington Park,park,Beddington,no,yes,no,no,yes,yes,no,35,Historic parkland with river walks
+Mitcham Common,common,Mitcham,no,yes,no,no,no,yes,no,25,Open common and ponds near south London
+Ravenscourt Park,park,Hammersmith,no,yes,no,no,yes,yes,no,55,West London park with lawns and gardens
+Gunnersbury Park,park,Ealing,no,yes,no,no,yes,yes,no,65,Large park with museum and gardens
+Osterley Park and House,historic house,Osterley,no,no,no,no,no,yes,no,75,National Trust house and parkland
+Syon Park,park,Brentford,no,yes,no,no,yes,yes,no,75,Historic estate with gardens
+Borough Market,food market,London Bridge,yes,yes,yes,yes,yes,yes,yes,35,"Covered and outdoor food market, good for mild dry weather"
+Camden Market,market,Camden,partial,yes,yes,yes,yes,yes,yes,55,Busy market with food and alternative shops
+Maltby Street Market,food market,Bermondsey,partial,yes,yes,yes,yes,yes,yes,45,Weekend railway-arch food market
+Mercato Metropolitano,food hall,Elephant and Castle,yes,no,yes,yes,yes,yes,yes,35,Indoor food hall good for wet weather
+Brixton Village,food market,Brixton,yes,yes,yes,yes,yes,yes,yes,30,Covered arcades with independent food spots
+Pop Brixton,food market,Brixton,partial,yes,yes,yes,yes,yes,yes,30,Casual food and events space
+Old Spitalfields Market,market,Spitalfields,yes,yes,yes,yes,yes,yes,yes,55,"Covered market for food, shops and stalls"
+Greenwich Market,market,Greenwich,yes,yes,yes,yes,yes,yes,yes,60,Covered arts and food market
+Portobello Road Market,market,Notting Hill,partial,yes,yes,yes,yes,yes,yes,55,Outdoor antiques and street market
+Columbia Road Flower Market,market,Bethnal Green,partial,yes,yes,yes,yes,yes,yes,60,"Sunday flower market, best in dry weather"
+Broadway Market,market,Hackney,partial,yes,yes,yes,yes,yes,yes,65,Saturday food and street market
+Seven Dials Market,food hall,Covent Garden,yes,no,yes,yes,yes,yes,yes,40,Indoor food hall in central London
+Arcade Food Hall,food hall,Oxford Street,yes,no,yes,yes,yes,yes,yes,45,Central indoor food hall
+Market Halls Victoria,food hall,Victoria,yes,no,yes,yes,yes,yes,yes,30,Indoor food hall close to Westminster
+Market Halls Oxford Street,food hall,Oxford Street,yes,no,yes,yes,yes,yes,yes,45,Indoor food hall near West End shops
+Mercato Mayfair,food hall,Mayfair,yes,no,yes,yes,yes,yes,yes,45,Food hall inside a former church
+Boxpark Croydon,food hall,Croydon,yes,no,yes,yes,yes,yes,yes,45,Covered food and events venue
+Boxpark Shoreditch,food hall,Shoreditch,yes,no,yes,yes,yes,yes,yes,60,Casual food and events venue
+Boxpark Wembley,food hall,Wembley,yes,no,yes,yes,yes,yes,yes,75,Food and events venue near Wembley Park
+Flat Iron Square,food market,Borough,partial,yes,yes,yes,yes,yes,yes,40,Food and drink venue near London Bridge
+Vinegar Yard,food market,London Bridge,partial,yes,yes,yes,yes,yes,yes,40,Outdoor food and flea market
+Canopy Market,market,King's Cross,yes,yes,yes,yes,yes,yes,yes,55,Covered weekend market in King's Cross
+Duke of York Square Fine Food Market,food market,Chelsea,partial,yes,yes,yes,yes,yes,yes,40,Saturday food market near King's Road
+Southbank Centre Food Market,food market,South Bank,partial,yes,yes,yes,yes,yes,yes,35,Riverside food market under cover
+Leather Lane Market,market,Holborn,partial,yes,yes,yes,yes,yes,yes,45,Weekday street food market
+Berwick Street Market,market,Soho,partial,yes,yes,yes,yes,yes,yes,40,Historic street market in central London
+Whitecross Street Market,market,Old Street,partial,yes,yes,yes,yes,yes,yes,55,Weekday street food market
+Tooting Market,market,Tooting,yes,yes,yes,yes,yes,yes,yes,20,Covered local market with food stalls
+Merton Abbey Mills,market,Colliers Wood,partial,yes,yes,yes,yes,yes,yes,20,Craft market and riverside mill site
+Battersea Power Station,food and shops,Battersea,yes,no,yes,yes,yes,yes,yes,35,Indoor shopping and riverside food destination
+Chinatown London,food district,Soho,partial,partial,yes,yes,no,yes,yes,40,Central food district good in most weather
+Carnaby Street,shopping street,Soho,partial,partial,yes,yes,no,yes,yes,40,Pedestrian shopping and dining streets
+Covent Garden Market,market,Covent Garden,yes,yes,yes,yes,yes,yes,yes,40,"Covered market, shops and street performers"
+Coal Drops Yard,shopping and food,King's Cross,no,no,no,no,no,yes,no,55,Canalside shops and restaurants
+Granary Square,public square,King's Cross,no,no,no,yes,no,yes,no,55,Canalside square with fountains and restaurants
+Leadenhall Market,covered market,City of London,yes,yes,yes,yes,yes,yes,yes,45,Historic covered market and architecture
+Royal Exchange,covered arcade,City of London,yes,no,yes,yes,yes,yes,yes,45,Historic indoor shopping and dining arcade
+Camden Lock,market,Camden,partial,yes,yes,yes,yes,yes,yes,55,Canal-side market and food stalls
+Brick Lane,food street,Shoreditch,partial,partial,yes,yes,no,yes,yes,60,"Street food, curry houses and vintage shops"
+Broadgate Circle,food and drink,Liverpool Street,yes,no,yes,yes,yes,yes,yes,55,Covered dining area near the City
+Exmouth Market,food street,Clerkenwell,partial,partial,yes,yes,no,yes,yes,50,Food street with cafes and restaurants
+Camberwell Church Street,food street,Camberwell,partial,partial,yes,yes,no,yes,yes,40,Local food and pub area
+Northcote Road Market,market,Battersea,partial,yes,yes,yes,yes,yes,yes,35,Neighbourhood market street
+Marylebone Farmers' Market,market,Marylebone,partial,yes,yes,yes,yes,yes,yes,50,Sunday food market
+Herne Hill Market,market,Herne Hill,partial,yes,yes,yes,yes,yes,yes,40,Sunday neighbourhood food market
+Wimbledon Village,neighbourhood,Wimbledon,partial,partial,yes,yes,no,yes,yes,30,"Village-style shops, cafes and common walks"
+Dulwich Village,neighbourhood,Dulwich,partial,partial,yes,yes,no,yes,yes,45,Leafy village feel with gallery and park nearby
+Hampstead Village,neighbourhood,Hampstead,partial,partial,yes,yes,no,yes,yes,65,Historic village with pubs and heath access
+Highgate Village,neighbourhood,Highgate,partial,partial,yes,yes,no,yes,yes,70,Historic hilltop village with pubs and cemetery
+Richmond Town Centre,neighbourhood,Richmond,partial,partial,yes,yes,no,yes,yes,50,Riverside town centre with shops and views
+Greenwich Town Centre,neighbourhood,Greenwich,partial,partial,yes,yes,no,yes,yes,60,Historic riverside area with markets and museums
+Bermondsey Street,food street,Bermondsey,partial,partial,yes,yes,no,yes,yes,45,"Restaurants, galleries and village feel"
+King's Road Chelsea,shopping street,Chelsea,partial,partial,yes,yes,no,yes,yes,40,Shopping and cafes in Chelsea
+Marylebone High Street,shopping street,Marylebone,partial,partial,yes,yes,no,yes,yes,50,Shops and cafes near Wallace Collection
+Westminster Abbey,historic site,Westminster,no,no,no,no,no,yes,no,35,"Historic abbey, good for culture and rain shelter"
+Houses of Parliament,landmark,Westminster,no,yes,no,no,no,yes,no,35,Iconic riverside landmark and architecture
+Big Ben and Parliament Square,landmark,Westminster,no,yes,no,no,no,yes,no,35,Classic central London landmark stop
+Tower of London,historic site,Tower Hill,yes,no,yes,yes,yes,yes,yes,50,Historic fortress with indoor and outdoor areas
+Tower Bridge,landmark,Tower Bridge,no,yes,no,no,no,yes,no,50,Iconic bridge and exhibition walkways
+St Paul's Cathedral,historic site,City of London,no,no,no,no,no,yes,no,45,Major cathedral and viewpoint
+The Monument,viewpoint,City of London,no,yes,no,no,no,yes,no,45,Historic column with city views
+Buckingham Palace,landmark,Westminster,no,yes,no,no,no,yes,no,35,"Royal landmark, best in dry weather"
+Kensington Palace,historic site,Kensington Gardens,no,no,no,no,no,yes,no,45,Royal palace with parkland nearby
+Hampton Court Palace,historic site,Hampton Court,no,no,no,no,no,yes,no,75,"Large palace and gardens, better for settled weather"
+Eltham Palace,historic site,Eltham,no,no,no,no,no,yes,no,70,Art deco palace with gardens
+Churchill War Rooms,museum,Westminster,yes,no,yes,yes,yes,yes,yes,35,"Underground wartime museum, excellent rain option"
+Banqueting House,historic site,Whitehall,no,no,no,no,no,yes,no,35,Historic hall with painted ceiling
+Royal Courts of Justice,landmark,Strand,no,yes,no,no,no,yes,no,40,Gothic legal landmark on the Strand
+Temple Church,historic site,Temple,no,no,no,no,no,yes,no,40,Historic church in legal London
+Westminster Cathedral,historic site,Victoria,no,no,no,no,no,yes,no,30,Byzantine-style cathedral near Victoria
+Southwark Cathedral,historic site,London Bridge,no,no,no,no,no,yes,no,40,Historic cathedral beside Borough Market
+St Martin-in-the-Fields,historic site,Trafalgar Square,no,no,no,no,no,yes,no,35,"Church, concerts and central cafe"
+Somerset House Courtyard,landmark,Strand,no,yes,no,no,no,yes,no,40,Grand courtyard and exhibitions
+Guildhall Yard,historic site,City of London,no,no,no,no,no,yes,no,45,Historic civic square and art gallery nearby
+Old Royal Naval College,historic site,Greenwich,no,no,no,no,no,yes,no,60,Historic riverside buildings and Painted Hall
+Painted Hall Greenwich,historic site,Greenwich,yes,no,yes,yes,yes,yes,yes,60,Lavish indoor hall in Maritime Greenwich
+Greenwich Foot Tunnel,walk,Greenwich,no,yes,no,no,no,yes,no,60,Pedestrian tunnel under the Thames
+Sky Garden,viewpoint,City of London,yes,yes,yes,yes,yes,yes,yes,50,"Indoor garden viewpoint, good for grey days"
+The Garden at 120,viewpoint,City of London,no,yes,no,no,no,yes,no,50,"Free rooftop garden viewpoint, best in calm weather"
+Horizon 22,viewpoint,City of London,yes,yes,yes,yes,yes,yes,yes,50,High indoor viewing gallery
+The View from The Shard,viewpoint,London Bridge,yes,yes,yes,yes,yes,yes,yes,40,High indoor viewpoint for clear days
+London Eye,viewpoint,South Bank,no,yes,no,no,no,yes,no,35,Observation wheel on the Thames
+IFS Cloud Cable Car,viewpoint,Royal Docks,no,yes,no,no,no,yes,no,75,"Cable car river crossing, best in clear calm weather"
+The O2,entertainment,Greenwich Peninsula,no,no,no,no,no,yes,no,70,Large entertainment venue and riverside area
+Up at The O2,viewpoint,Greenwich Peninsula,no,yes,no,no,no,yes,no,70,Outdoor roof climb for dry calm weather
+Shakespeare's Globe,theatre,Bankside,yes,no,yes,yes,yes,yes,yes,40,Historic-style theatre by the Thames
+National Theatre,theatre,South Bank,yes,no,yes,yes,yes,yes,yes,35,Major theatre venue and indoor cultural hub
+Royal Festival Hall,music venue,South Bank,yes,no,yes,yes,yes,yes,yes,35,Indoor music venue and riverside foyer
+Southbank Centre,arts centre,South Bank,yes,no,yes,yes,yes,yes,yes,35,Arts complex and riverside walk
+Royal Opera House,theatre,Covent Garden,yes,no,yes,yes,yes,yes,yes,40,Opera and ballet venue in Covent Garden
+The Old Vic,theatre,Waterloo,yes,no,yes,yes,yes,yes,yes,35,Historic theatre near Waterloo
+Young Vic,theatre,Waterloo,yes,no,yes,yes,yes,yes,yes,35,Contemporary theatre venue
+Barbican Centre,arts centre,Barbican,yes,no,yes,yes,yes,yes,yes,50,Large indoor arts complex
+Alexandra Palace,entertainment,Alexandra Palace,no,no,no,no,no,yes,no,75,Historic entertainment venue with views
+South Bank Walk,riverside walk,South Bank,no,yes,no,no,yes,yes,no,35,"Classic riverside walk, best in dry weather"
+Queen's Walk,riverside walk,South Bank,no,yes,no,no,yes,yes,no,35,Riverside route past major landmarks
+Thames Path Battersea to Westminster,riverside walk,Battersea,no,yes,no,no,yes,yes,no,35,"Scenic Thames walk, good when dry"
+Regent's Canal Walk,canal walk,Little Venice,no,yes,no,no,yes,yes,no,55,"Canalside walk, best in calm dry weather"
+Little Venice,canal area,Maida Vale,no,yes,no,no,yes,yes,no,55,Pretty canals and cafes
+Parkland Walk,walk,Finsbury Park,no,yes,no,no,no,yes,no,75,Wooded former railway walk
+Jubilee Walkway,walk,Central London,no,yes,no,no,no,yes,no,40,Signposted route linking central sights
+Sculpture in the City,public art,City of London,no,yes,no,yes,no,yes,no,50,"Outdoor sculpture trail, good in dry weather"
+St Katharine Docks,marina,Tower Bridge,no,yes,no,no,no,yes,no,50,"Marina, restaurants and river views"
+Canary Wharf Roof Garden,garden,Canary Wharf,yes,yes,yes,yes,yes,yes,yes,60,Covered roof garden among towers
+Canary Wharf Public Art Trail,public art,Canary Wharf,yes,yes,yes,yes,yes,yes,yes,60,Outdoor and indoor public art route
+Greenwich Peninsula Art Trail,public art,Greenwich Peninsula,no,yes,no,yes,no,yes,no,70,Riverside art and architecture walk
+Bermondsey Beer Mile,food and drink,Bermondsey,no,no,no,no,no,yes,no,45,"Railway-arch breweries, better for dry afternoons"
+Camden Passage,shopping street,Islington,partial,partial,yes,yes,no,yes,yes,60,"Antiques, cafes and small shops"
+Neal's Yard,courtyard,Covent Garden,no,no,no,no,no,yes,no,40,Colourful courtyard near Covent Garden
+Seven Dials,neighbourhood,Covent Garden,partial,partial,yes,yes,no,yes,yes,40,Central shopping and dining streets
+Soho Square,square,Soho,no,no,no,no,no,yes,no,40,Small central square near food and theatres
+Trafalgar Square,landmark,Westminster,no,yes,no,no,no,yes,no,35,Central square surrounded by galleries
+Piccadilly Circus,landmark,West End,no,yes,no,no,no,yes,no,40,Iconic West End junction and lights
+Leicester Square,entertainment district,West End,no,no,no,no,no,yes,no,40,Cinema and theatre hub
+Mayfair galleries,gallery district,Mayfair,yes,no,yes,yes,yes,yes,yes,45,Commercial galleries and elegant streets
+Shoreditch Street Art,street art,Shoreditch,no,no,no,no,no,yes,no,60,"Street art route, best in dry weather"
+Hackney Wick canalside,canal area,Hackney Wick,no,yes,no,no,yes,yes,no,70,"Canalside food, art and warehouses"
+God's Own Junkyard,gallery,Walthamstow,yes,no,yes,yes,yes,yes,yes,75,"Neon art gallery, bright indoor option"
+William Morris Gallery,museum,Walthamstow,yes,no,yes,yes,yes,yes,yes,75,Design museum in Lloyd Park
+Walthamstow Village,neighbourhood,Walthamstow,partial,partial,yes,yes,no,yes,yes,75,Historic village feel with pubs and shops
+Epping Forest southern edge,forest,Chingford,no,yes,no,no,no,yes,no,90,Large forest walk for dry weekends
+Royal Albert Hall,music venue,South Kensington,yes,no,yes,yes,yes,yes,yes,45,"Iconic concert hall, good for wet evenings"
+Cadogan Hall,music venue,Chelsea,yes,no,yes,yes,yes,yes,yes,40,Indoor concert venue near Sloane Square
+Wigmore Hall,music venue,Marylebone,yes,no,yes,yes,yes,yes,yes,45,Classical music venue for rainy evenings
+Wilton's Music Hall,theatre,Wapping,yes,no,yes,yes,yes,yes,yes,55,Historic music hall and atmospheric indoor venue
+Rivoli Ballroom,entertainment,Brockley,no,no,no,no,no,yes,no,60,Historic ballroom and event venue
+The Ned,food and drink,City of London,yes,no,yes,yes,yes,yes,yes,45,Grand indoor dining hall in the City
+Eataly London,food hall,Liverpool Street,yes,no,yes,yes,yes,yes,yes,55,"Large Italian food hall, good for wet weather"
+Harrods Food Halls,food hall,Knightsbridge,yes,no,yes,yes,yes,yes,yes,40,Historic indoor food halls
+Fortnum & Mason,food hall,Piccadilly,yes,no,yes,yes,yes,yes,yes,40,Classic department store for indoor browsing
+Liberty London,shopping,Soho,yes,no,yes,yes,yes,yes,yes,40,Historic department store and indoor browsing
+Selfridges,shopping,Oxford Street,no,no,no,no,no,yes,no,45,Large department store for wet weather
+Daunt Books Marylebone,bookshop,Marylebone,yes,no,yes,yes,yes,yes,yes,50,Beautiful bookshop for rainy days
+Foyles Charing Cross Road,bookshop,Soho,yes,no,yes,yes,yes,yes,yes,40,Large central bookshop and cafe
+Waterstones Piccadilly,bookshop,Piccadilly,yes,no,yes,yes,yes,yes,yes,40,Large bookshop with cafe and central location
+Southbank Book Market,book market,South Bank,partial,yes,yes,yes,yes,yes,yes,35,Outdoor book market under Waterloo Bridge
+Libreria Bookshop,bookshop,Spitalfields,yes,no,yes,yes,yes,yes,yes,55,Stylish small bookshop near markets
+Hatchards Piccadilly,bookshop,Piccadilly,yes,no,yes,yes,yes,yes,yes,40,Historic bookshop by Piccadilly
+Daunt Books Holland Park,bookshop,Holland Park,yes,no,yes,yes,yes,yes,yes,55,Neighbourhood bookshop near park walks
+The Churchill Arms,pub,Kensington,yes,no,yes,yes,yes,yes,yes,50,"Flower-covered pub, good for mild days"
+The Spaniards Inn,pub,Hampstead,no,no,no,yes,no,yes,no,70,Historic pub near Hampstead Heath
+The Mayflower Pub,pub,Rotherhithe,no,no,no,yes,no,yes,no,55,Historic riverside pub
+The Prospect of Whitby,pub,Wapping,no,no,no,yes,no,yes,no,55,Historic riverside pub
+The Grapes Limehouse,pub,Limehouse,no,no,no,yes,no,yes,no,60,Historic riverside pub
+The Trafalgar Tavern,pub,Greenwich,no,no,no,yes,no,yes,no,60,Riverside pub in Greenwich
+The Holly Bush Hampstead,pub,Hampstead,no,no,no,yes,no,yes,no,65,Cosy historic pub for cooler days
+The Dove Hammersmith,pub,Hammersmith,no,no,no,yes,no,yes,no,55,Riverside pub for dry mild weather
+The Ship Wandsworth,pub,Wandsworth,no,no,no,yes,no,yes,no,35,Riverside pub closer to south-west London
+The Leather Bottle Earlsfield,pub,Earlsfield,no,no,no,yes,no,yes,no,30,Large pub garden near Morden route
+The Antelope Tooting,pub,Tooting,no,no,no,yes,no,yes,no,20,Neighbourhood pub close to Morden
+Dog & Fox Wimbledon Village,pub,Wimbledon,no,no,no,yes,no,yes,no,30,Village pub near Wimbledon Common
+The Alexandra Wimbledon,pub,Wimbledon,no,no,no,yes,no,yes,no,30,Pub with rooftop terrace in Wimbledon
+The Windmill Clapham Common,pub,Clapham,no,no,no,yes,no,yes,no,35,Pub by Clapham Common
+The Bedford Balham,pub,Balham,no,no,no,yes,no,yes,no,25,Historic pub and live entertainment venue
+Ritzy Cinema Brixton,cinema,Brixton,yes,no,yes,yes,yes,yes,yes,30,Cinema and cafe for rainy days
+Curzon Wimbledon,cinema,Wimbledon,yes,no,yes,yes,yes,yes,yes,25,Local cinema option near Morden
+Everyman Chelsea,cinema,Chelsea,yes,no,yes,yes,yes,yes,yes,45,Comfortable cinema for wet evenings
+Picturehouse Central,cinema,Piccadilly,yes,no,yes,yes,yes,yes,yes,40,Central cinema with cafe
+Tara Theatre,theatre,Earlsfield,yes,no,yes,yes,yes,yes,yes,30,Local theatre close to Morden
+New Wimbledon Theatre,theatre,Wimbledon,yes,no,yes,yes,yes,yes,yes,25,Large theatre near Morden
+Polka Theatre,theatre,Wimbledon,yes,no,yes,yes,yes,yes,yes,25,Family-friendly theatre near Morden
+Battersea Arts Centre,theatre,Battersea,yes,no,yes,yes,yes,yes,yes,35,Arts venue in historic town hall
+Omnibus Theatre,theatre,Clapham,yes,no,yes,yes,yes,yes,yes,35,Small theatre near Clapham Common
+Clapham Picturehouse,cinema,Clapham,yes,no,yes,yes,yes,yes,yes,35,Local cinema near the Northern line
+Wimbledon Lawn Tennis Museum,museum,Wimbledon,yes,no,yes,yes,yes,yes,yes,35,Tennis museum and tour option
+All England Lawn Tennis Club grounds,sports venue,Wimbledon,no,no,no,no,no,yes,no,35,"Famous tennis grounds, best for dry days"
+Chelsea Harbour Design Centre,design centre,Chelsea Harbour,yes,no,yes,yes,yes,yes,yes,45,"Interior design showrooms, indoor browsing"
+Battersea Park Children's Zoo,zoo,Battersea,no,yes,no,no,no,yes,no,35,"Small outdoor zoo, best in mild dry weather"
+London Zoo,zoo,Regent's Park,yes,yes,yes,yes,yes,yes,yes,60,Major zoo with indoor and outdoor habitats
+Sea Life London Aquarium,aquarium,South Bank,yes,no,yes,yes,yes,yes,yes,35,Indoor aquarium near Westminster
+Madame Tussauds London,attraction,Baker Street,yes,no,yes,yes,yes,yes,yes,50,Indoor wax museum attraction
+London Dungeon,attraction,South Bank,yes,no,yes,yes,yes,yes,yes,35,Indoor theatrical attraction
+Frameless London,immersive art,Marble Arch,yes,no,yes,yes,yes,yes,yes,45,Indoor immersive art venue
+Outernet London,immersive screens,Tottenham Court Road,yes,no,yes,yes,yes,yes,yes,45,Indoor digital screens and music spaces
+The Lightroom,immersive art,King's Cross,no,no,no,no,no,yes,no,55,Large immersive exhibition venue
+Dopamine Land,immersive attraction,South Kensington,yes,no,yes,yes,yes,yes,yes,45,Colourful indoor immersive attraction
+Monopoly Lifesized,immersive game,Tottenham Court Road,yes,no,yes,yes,yes,yes,yes,45,Indoor game attraction
+DNA VR Battersea,indoor activity,Battersea,yes,no,yes,yes,yes,yes,yes,35,Virtual reality activity for rainy days
+Gravity Wandsworth,indoor activity,Wandsworth,yes,no,yes,yes,yes,yes,yes,35,Indoor entertainment complex
+Puttshack Bank,indoor activity,Bank,yes,no,yes,yes,yes,yes,yes,45,Indoor mini golf in the City
+Swingers West End,indoor activity,Oxford Circus,yes,no,yes,yes,yes,yes,yes,45,Indoor crazy golf and food
+Flight Club Victoria,indoor activity,Victoria,yes,no,yes,yes,yes,yes,yes,30,Indoor darts and social games
+Bounce Farringdon,indoor activity,Farringdon,yes,no,yes,yes,yes,yes,yes,50,Indoor ping-pong bar
+All Star Lanes Holborn,indoor activity,Holborn,yes,no,yes,yes,yes,yes,yes,45,Bowling and food indoors
+Queens Skate Dine Bowl,indoor activity,Queensway,yes,no,yes,yes,yes,yes,yes,50,"Ice skating, bowling and food"
+Alexandra Palace Ice Rink,indoor activity,Alexandra Palace,yes,no,yes,yes,yes,yes,yes,75,Indoor ice rink with park nearby
+Lee Valley Ice Centre,indoor activity,Leyton,yes,no,yes,yes,yes,yes,yes,75,Indoor ice skating venue
+Crystal Palace National Sports Centre,sports venue,Crystal Palace,yes,no,yes,yes,yes,yes,yes,60,Indoor sports and park option
+Tooting Bec Lido,outdoor swimming,Tooting,no,no,no,no,no,yes,no,25,Outdoor lido for warm dry days
+Brockwell Lido,outdoor swimming,Herne Hill,no,no,no,no,no,yes,no,45,Outdoor lido beside Brockwell Park
+Parliament Hill Lido,outdoor swimming,Hampstead Heath,no,no,no,no,no,yes,no,65,Outdoor lido for warm days
+Hampstead Heath Bathing Ponds,outdoor swimming,Hampstead Heath,no,no,no,no,no,yes,no,65,Outdoor swimming ponds for warm weather
+Serpentine Lido,outdoor swimming,Hyde Park,no,no,no,no,no,yes,no,45,Outdoor swimming in Hyde Park
+Sky Pool viewpoint at Embassy Gardens,viewpoint,Nine Elms,no,yes,no,no,no,yes,no,30,Modern sky pool area and riverside views
