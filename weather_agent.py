@@ -1,7 +1,10 @@
 import os
+import csv
+import random
 import requests
 import smtplib
 
+from pathlib import Path
 from email.mime.text import MIMEText
 from dotenv import load_dotenv
 from datetime import datetime
@@ -18,6 +21,8 @@ TO_EMAIL = os.getenv("TO_EMAIL")
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
+PLACES_FILE = Path("places.csv")
+
 
 def log(message):
     with open("weather_log.txt", "a") as f:
@@ -32,9 +37,6 @@ def get_weather():
 
     response = requests.get(url)
     data = response.json()
-
-    print("Weather API status:", response.status_code)
-    print("Weather API response:", data)
 
     if response.status_code != 200:
         raise Exception(f"Weather API failed: {data}")
@@ -56,13 +58,10 @@ def get_forecast():
     response = requests.get(url)
     data = response.json()
 
-    print("Forecast API status:", response.status_code)
-
     if response.status_code != 200:
         raise Exception(f"Forecast API failed: {data}")
 
     forecast_items = data["list"]
-
     next_24_hours = forecast_items[:8]
 
     hourly_summary = []
@@ -86,42 +85,25 @@ def get_forecast():
     tomorrow_temps = [item["main"]["temp"] for item in tomorrow_items]
     tomorrow_rain_probs = [item.get("pop", 0) for item in tomorrow_items]
 
-    tomorrow_summary = {
-        "date": tomorrow_date,
-        "min_temp": round(min(tomorrow_temps)),
-        "max_temp": round(max(tomorrow_temps)),
-        "max_rain_probability": round(max(tomorrow_rain_probs) * 100),
-        "conditions": tomorrow_items[0]["weather"][0]["description"],
-    }
-
     return {
         "next_24_hours": hourly_summary,
-        "tomorrow": tomorrow_summary,
+        "tomorrow": {
+            "date": tomorrow_date,
+            "min_temp": round(min(tomorrow_temps)),
+            "max_temp": round(max(tomorrow_temps)),
+            "max_rain_probability": round(max(tomorrow_rain_probs) * 100),
+            "conditions": tomorrow_items[0]["weather"][0]["description"],
+        },
     }
 
 
 def analyze_forecast(forecast):
     next_24_hours = forecast["next_24_hours"]
 
-    highest_rain = max(
-        next_24_hours,
-        key=lambda item: item["rain_probability"]
-    )
-
-    hottest_period = max(
-        next_24_hours,
-        key=lambda item: item["temp"]
-    )
-
-    coldest_period = min(
-        next_24_hours,
-        key=lambda item: item["temp"]
-    )
-
-    strongest_wind = max(
-        next_24_hours,
-        key=lambda item: item["wind"]
-    )
+    highest_rain = max(next_24_hours, key=lambda item: item["rain_probability"])
+    hottest_period = max(next_24_hours, key=lambda item: item["temp"])
+    coldest_period = min(next_24_hours, key=lambda item: item["temp"])
+    strongest_wind = max(next_24_hours, key=lambda item: item["wind"])
 
     max_rain_probability = highest_rain["rain_probability"]
     max_wind_speed = strongest_wind["wind"]
@@ -161,20 +143,13 @@ def analyze_forecast(forecast):
 def get_commute():
     url = "https://api.tfl.gov.uk/Journey/JourneyResults/1000151/to/1000266"
 
-    params = {
-        "mode": "tube",
-    }
-
-    response = requests.get(url, params=params)
+    response = requests.get(url, params={"mode": "tube"})
     data = response.json()
-
-    print("TfL Journey status:", response.status_code)
-    print("TfL Journey response:", data)
 
     if response.status_code != 200:
         raise Exception(f"TfL Journey API failed: {data}")
 
-    if "journeys" not in data or len(data["journeys"]) == 0:
+    if "journeys" not in data or not data["journeys"]:
         raise Exception(f"No TfL journey found: {data}")
 
     journey = data["journeys"][0]
@@ -193,25 +168,14 @@ def get_tube_status():
     response = requests.get(url)
     data = response.json()
 
-    print("TfL Tube status:", response.status_code)
-    print("TfL Tube response:", data)
-
     if response.status_code != 200:
         raise Exception(f"TfL Line Status API failed: {data}")
 
-    relevant_lines = [
-        "northern",
-        "jubilee",
-        "district",
-        "circle",
-    ]
-
+    relevant_lines = ["northern", "jubilee", "district", "circle"]
     statuses = []
 
     for line in data:
-        line_id = line["id"]
-
-        if line_id in relevant_lines:
+        if line["id"] in relevant_lines:
             line_statuses = [
                 status["statusSeverityDescription"]
                 for status in line["lineStatuses"]
@@ -224,29 +188,78 @@ def get_tube_status():
 
     return statuses
 
-try:
-    commute = get_commute()
-except Exception as e:
-    log(f"TfL commute failed: {e}")
-    commute = {
-        "route": "Morden to Westminster",
-        "duration": "Unavailable",
-        "start_time": "Unavailable",
-        "arrival_time": "Unavailable",
-    }
 
-try:
-    tube_status = get_tube_status()
-except Exception as e:
-    log(f"Tube status failed: {e}")
-    tube_status = [{"line": "TfL", "status": "Unavailable"}]
+def load_places():
+    if not PLACES_FILE.exists():
+        raise FileNotFoundError("places.csv not found in repo")
+
+    with open(PLACES_FILE, "r") as f:
+        return list(csv.DictReader(f))
 
 
-def generate_summary(weather, forecast, analysis, commute, tube_status):
+def score_place(place, weather, analysis):
+    score = 0
+
+    rain = analysis["highest_rain_probability"]["value"]
+    wind = analysis["strongest_wind"]["speed"]
+    temp = round(weather["temp"])
+
+    if rain >= 50 and place["rain_good"] == "yes":
+        score += 5
+
+    if rain < 30 and place["dry_good"] == "yes":
+        score += 4
+
+    if temp <= 10 and place["cold_good"] == "yes":
+        score += 3
+
+    if temp >= 20 and place["hot_good"] == "yes":
+        score += 3
+
+    if wind >= 8 and place["wind_good"] == "yes":
+        score += 2
+
+    if place["indoor"] == "yes" and (rain >= 50 or temp <= 10):
+        score += 2
+
+    if place["outdoor"] == "yes" and rain < 30 and wind < 8:
+        score += 2
+
+    try:
+        if int(place["max_commute_mins"]) <= 45:
+            score += 2
+    except ValueError:
+        pass
+
+    return score
+
+
+def choose_recommendation(weather, analysis):
+    places = load_places()
+
+    ranked = []
+
+    for place in places:
+        ranked.append({
+            "place": place,
+            "score": score_place(place, weather, analysis),
+        })
+
+    ranked = sorted(ranked, key=lambda item: item["score"], reverse=True)
+
+    top_choices = ranked[:5]
+
+    if not top_choices:
+        raise Exception("No places available in places.csv")
+
+    return random.choice(top_choices)["place"]
+
+
+def generate_summary(weather, forecast, analysis, commute, tube_status, recommendation):
     prompt = f"""
     You are a concise and useful London weather and Tube commute assistant.
 
-    Write a short morning briefing for today's weather, tomorrow's weather, and the commute.
+    Write a short morning briefing for today's weather, tomorrow's weather, the commute, and one recommendation.
 
     Requirements:
     - Start email with "Hello lovely people."
@@ -254,32 +267,17 @@ def generate_summary(weather, forecast, analysis, commute, tube_status):
     - Each new sentence should be a new paragraph.
     - Keep it under 200 words.
     - Include temperature, rounded to the nearest degree.
-    - Use adjectives to describe the temperature, for example "brisk" for 9°C and "sweltering" for 25°C.
     - Include conditions.
     - Include clothing recommendation.
     - Include TfL Tube commute duration.
     - Mention relevant Tube disruption status.
     - If Tube lines look normal, say the commute appears straightforward.
     - Mention whether the commute looks weather-affected based on rain and wind.
-    - Recommendations:
-      - Recommend ONE place or activity in London that suits today's weather.
-      - Choose from a wide variety of locations rather than repeating the same recommendation.
-      - Vary recommendations across:
-       - parks
-       - museums
-       - galleries
-       - food markets
-       - pubs
-       - riverside walks
-       - historic sites
-       - rooftop bars
-       - gardens
-       - indoor attractions
-       - seasonal events
-      - Prefer destinations within approximately 45 minutes of Morden by Tube.
-      - Explain in one sentence WHY today's weather makes it a good choice.
-    - Use separate paragraphs for today and tomorrow's weather. Highlight if the weather is going to change.
-    - Use the structured analysis below as the main source of reasoning:
+    - Recommend ONLY the provided place.
+    - Explain why the provided place suits today's weather.
+    - Do not invent a different destination.
+    - Use separate paragraphs for today and tomorrow's weather.
+    - Highlight if the weather is going to change.
 
     Current weather:
     Temperature: {round(weather['temp'])}°C
@@ -309,6 +307,12 @@ def generate_summary(weather, forecast, analysis, commute, tube_status):
 
     Relevant Tube line status:
     {tube_status}
+
+    Recommended place:
+    Name: {recommendation['name']}
+    Category: {recommendation['category']}
+    Area: {recommendation['area']}
+    Description: {recommendation['description']}
     """
 
     response = client.chat.completions.create(
@@ -350,18 +354,13 @@ def send_email(body):
     """
 
     msg = MIMEText(html_body, "html")
-
     msg["Subject"] = f"Weather & Tube Commute Update — {CITY}"
     msg["From"] = EMAIL_ADDRESS
     msg["To"] = ", ".join(recipients)
 
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
         server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-        server.sendmail(
-            EMAIL_ADDRESS,
-            recipients,
-            msg.as_string()
-        )
+        server.sendmail(EMAIL_ADDRESS, recipients, msg.as_string())
 
     print("HTML email sent successfully")
 
@@ -371,32 +370,41 @@ if __name__ == "__main__":
         log("Script started")
 
         weather = get_weather()
-        log(f"Weather data: {weather}")
-
         forecast = get_forecast()
-        log("Forecast data fetched")
-
         analysis = analyze_forecast(forecast)
-        log(f"Forecast analysis: {analysis}")
 
-        commute = get_commute()
-        log(f"TfL commute data: {commute}")
+        try:
+            commute = get_commute()
+        except Exception as e:
+            log(f"TfL commute failed: {e}")
+            commute = {
+                "route": "Morden to Westminster",
+                "duration": "Unavailable",
+                "start_time": "Unavailable",
+                "arrival_time": "Unavailable",
+            }
 
-        tube_status = get_tube_status()
-        log(f"Tube status: {tube_status}")
+        try:
+            tube_status = get_tube_status()
+        except Exception as e:
+            log(f"Tube status failed: {e}")
+            tube_status = [{"line": "TfL", "status": "Unavailable"}]
+
+        recommendation = choose_recommendation(weather, analysis)
+        log(f"Recommendation chosen: {recommendation['name']}")
 
         summary = generate_summary(
             weather,
             forecast,
             analysis,
             commute,
-            tube_status
+            tube_status,
+            recommendation
         )
-        log("Summary generated")
 
         send_email(summary)
-        log("Email sent successfully")
 
+        log("Email sent successfully")
         print(summary)
 
     except Exception as e:
