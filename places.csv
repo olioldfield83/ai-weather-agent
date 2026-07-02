@@ -1,7 +1,0 @@
-name,category,area,indoor,outdoor,rain_good,cold_good,hot_good,dry_good,wind_good,max_commute_mins,description
-British Museum,museum,Bloomsbury,yes,no,yes,yes,yes,yes,yes,40,World-class museum, best for rainy or cold days
-Richmond Park,park,Richmond,no,yes,no,no,no,yes,no,45,Large open park, best for dry calm weather
-Tate Modern,gallery,South Bank,yes,no,yes,yes,yes,yes,yes,40,Modern art gallery near the river
-Borough Market,food market,London Bridge,partial,partial,no,yes,yes,yes,yes,35,Food market, good for mild or dry weather
-Kew Gardens,garden,Kew,no,yes,no,no,yes,yes,no,45,Botanical gardens, best for warm dry days
-Natural History Museum,museum,South Kensington,yes,no,yes,yes,yes,yes,yes,45,Indoor museum, good for rainy days
