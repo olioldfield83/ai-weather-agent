@@ -22,6 +22,7 @@ TO_EMAIL = os.getenv("TO_EMAIL")
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 PLACES_FILE = Path("places.csv")
+RECOMMENDATION_HISTORY_FILE = Path("recommendation_history.csv")
 
 
 def log(message):
@@ -197,6 +198,40 @@ def load_places():
         return list(csv.DictReader(f))
 
 
+def load_used_recommendations():
+    if not RECOMMENDATION_HISTORY_FILE.exists():
+        return set()
+
+    with open(RECOMMENDATION_HISTORY_FILE, "r") as f:
+        rows = list(csv.DictReader(f))
+
+    return {row["name"] for row in rows if row.get("name")}
+
+
+def save_recommendation(place):
+    file_exists = RECOMMENDATION_HISTORY_FILE.exists()
+
+    with open(RECOMMENDATION_HISTORY_FILE, "a", newline="") as f:
+        fieldnames = [
+            "timestamp",
+            "name",
+            "category",
+            "area",
+        ]
+
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+
+        if not file_exists:
+            writer.writeheader()
+
+        writer.writerow({
+            "timestamp": datetime.now().isoformat(),
+            "name": place["name"],
+            "category": place["category"],
+            "area": place["area"],
+        })
+
+
 def score_place(place, weather, analysis):
     score = 0
 
@@ -236,21 +271,35 @@ def score_place(place, weather, analysis):
 
 def choose_recommendation(weather, analysis):
     places = load_places()
+    used_places = load_used_recommendations()
 
     ranked = []
 
     for place in places:
+        if place["name"] in used_places:
+            continue
+
         ranked.append({
             "place": place,
             "score": score_place(place, weather, analysis),
         })
 
+    if not ranked:
+        log("All places have been used. Resetting recommendation history.")
+        RECOMMENDATION_HISTORY_FILE.unlink(missing_ok=True)
+
+        for place in places:
+            ranked.append({
+                "place": place,
+                "score": score_place(place, weather, analysis),
+            })
+
     ranked = sorted(ranked, key=lambda item: item["score"], reverse=True)
 
-    top_choices = ranked[:5]
+    top_choices = ranked[:10]
 
     if not top_choices:
-        raise Exception("No places available in places.csv")
+        raise Exception("No places available to recommend")
 
     return random.choice(top_choices)["place"]
 
@@ -403,6 +452,9 @@ if __name__ == "__main__":
         )
 
         send_email(summary)
+
+        save_recommendation(recommendation)
+        log(f"Recommendation saved: {recommendation['name']}")
 
         log("Email sent successfully")
         print(summary)
