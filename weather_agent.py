@@ -156,7 +156,7 @@ def get_commute():
     journey = data["journeys"][0]
 
     return {
-        "route": "Morden to Westminster",
+        "route": "Morden to Canary Wharf",
         "duration": f"{journey['duration']} mins",
         "start_time": journey.get("startDateTime"),
         "arrival_time": journey.get("arrivalDateTime"),
@@ -172,7 +172,7 @@ def get_tube_status():
     if response.status_code != 200:
         raise Exception(f"TfL Line Status API failed: {data}")
 
-    relevant_lines = ["northern", "jubilee", "district", "circle"]
+    relevant_lines = ["northern", "jubilee", "district", "circle", "dlr"]
     statuses = []
 
     for line in data:
@@ -311,7 +311,7 @@ def generate_summary(weather, forecast, analysis, commute, tube_status, recommen
     Write a short morning briefing for today's weather, tomorrow's weather, the commute, and one recommendation.
 
     Requirements:
-    - Start email with "Hello lovely people."
+    - Start email with "Hello everyone"
     - End email with "Take care everyone!"
     - Each new sentence should be a new paragraph.
     - Keep it under 200 words.
